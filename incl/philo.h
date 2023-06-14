@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:22:17 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/06/15 00:45:40 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_philo {
-	t_data	data;
+	int	zero;
 }	t_philo;
 
 unsigned long	get_time(void);

@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:34:30 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:20:23 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/06/15 00:46:53 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	input_check(int ac, char **av)
 	}
 }
 
-void	assign_data(t_philo *philo, int ac, char **av)
+void	assign_data(t_data *data, int ac, char **av)
 {
-	philo->data.nb_ph = ft_atoi(av[1]);
-	philo->data.time_to_die = ft_atoi(av[2]);
-	philo->data.time_to_eat = ft_atoi(av[3]);
-	philo->data.time_to_sleep = ft_atoi(av[4]);
+	data->nb_ph = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		philo->data.max_eat_times = ft_atoi(av[5]);
+		data->max_eat_times = ft_atoi(av[5]);
 }
