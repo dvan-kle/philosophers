@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:34:30 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:46:53 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/10/14 19:04:27 by danielvankl   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ int	input_check(int ac, char **av)
 	int	i;
 
 	i = 1;
-	if (ac != 5 || ac != 6)
+	if (ac < 4 || ac > 6)
 		return (EXIT_FAILURE);
 	while (av[i])
 	{
-		if (check_digits(av[i]))
+		if (!check_digits(av[i]))
 			return (EXIT_FAILURE);
+		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	assign_data(t_data *data, int ac, char **av)
@@ -51,4 +53,5 @@ void	assign_data(t_data *data, int ac, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		data->max_eat_times = ft_atoi(av[5]);
+	data->starttime = get_time();
 }

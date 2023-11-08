@@ -6,22 +6,20 @@
 #    By: dvan-kle <dvan-kle@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/06/14 21:47:54 by dvan-kle      #+#    #+#                  #
-#    Updated: 2023/06/15 00:22:34 by dvan-kle      ########   odam.nl          #
+#    Updated: 2023/10/14 19:01:34 by danielvankl   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CC_FLAGS = -Wall -Wextra
+CC_FLAGS = -Wall -Wextra -g -fsanitize=address
 SRC = src/main.c src/input.c src/time.c src/utils.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all: $(NAME)
-
-# .SILENT:
 
 $(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)
 	$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME)
@@ -30,6 +28,8 @@ $(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)
 $(OBJ_DIR)%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CC_FLAGS) -c $< -o $@
+
+all: $(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)

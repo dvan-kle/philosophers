@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:45:40 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/10/14 19:05:50 by danielvankl   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include<unistd.h>
+# include <unistd.h>
 
 typedef struct s_data {
 	int				nb_ph;
@@ -36,5 +36,7 @@ typedef struct s_philo {
 unsigned long	get_time(void);
 unsigned long	current_time(unsigned long starttime);
 int				ft_atoi(const char *str);
+int				input_check(int ac, char **av);
+void			assign_data(t_data *data, int ac, char **av);
 
 #endif
