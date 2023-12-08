@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:45:40 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/08 16:40:10 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include<unistd.h>
+# include <unistd.h>
 
 typedef struct s_data {
 	int				nb_ph;
@@ -26,15 +26,25 @@ typedef struct s_data {
 	int				time_to_sleep;
 	int				max_eat_times;
 	unsigned long	starttime;
-	unsigned long	currenttime;
+	struct s_philo	*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	output;
+	pthread_mutex_t	checking;
 }	t_data;
 
 typedef struct s_philo {
-	int	zero;
+	pthread_t		thread_id;
+	int				id;
+	unsigned long	last_eat;
+	int				eat_count;
+	int				l_fork;
+	int				r_fork;
+	t_data			*data;
 }	t_philo;
 
 unsigned long	get_time(void);
 unsigned long	current_time(unsigned long starttime);
+void			assign_data(t_data *data, int ac, char **av);
 int				ft_atoi(const char *str);
 
 #endif

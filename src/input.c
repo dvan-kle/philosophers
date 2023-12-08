@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:34:30 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:46:53 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/08 16:19:57 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	input_check(int ac, char **av)
 		if (check_digits(av[i]))
 			return (EXIT_FAILURE);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	assign_data(t_data *data, int ac, char **av)
