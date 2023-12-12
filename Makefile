@@ -13,8 +13,8 @@
 NAME = philo
 
 CC = gcc
-CC_FLAGS = -Wall -Wextra
-SRC = src/main.c src/input.c src/time.c src/utils.c
+CC_FLAGS = -Wall -Wextra -g
+SRC = src/main.c src/input.c src/time.c src/utils.c src/routine.c
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))

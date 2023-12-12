@@ -35,3 +35,12 @@ int	ft_atoi(const char *str)
 	}
 	return (result * minplus);
 }
+
+void printer(t_data *data, int id, char *str)
+{
+	pthread_mutex_lock(&data->output);
+	printf("%lu", current_time(data->starttime));
+	printf(" %d ", id + 1);
+	printf("%s\n", str);
+	pthread_mutex_unlock(&data->output);
+}

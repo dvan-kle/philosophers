@@ -46,5 +46,11 @@ unsigned long	get_time(void);
 unsigned long	current_time(unsigned long starttime);
 void			assign_data(t_data *data, int ac, char **av);
 int				ft_atoi(const char *str);
-
+int				input_check(int ac, char **av);
+void			start_routine(t_data *data, t_philo *philos);
+void			exit_threads(t_philo *philos, t_data *data);
+void			sleeping(int time);
+void			philo_eats(t_philo *philo);
+void			printer(t_data *data, int id, char *str);
+void			*simulation(void *arg);
 #endif
