@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/13 18:07:18 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:14:04 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,22 @@ int	init_mutex(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	print_data(t_data *data)
+int	main(int ac, char **av)
+{
+	t_data	data;
+
+	if (input_check(ac, av))
+		return (EXIT_FAILURE);
+	assign_data(&data, ac, av);
+	if (init_mutex(&data))
+		return (EXIT_FAILURE);
+	create_philos(&data);
+	start_routine(&data, data.philos);
+	exit_threads(data.philos, &data);
+	return (0);
+}
+
+/* void	print_data(t_data *data)
 {
 	printf("nb_ph: %d\n", data->nb_ph);
 	printf("time_to_die: %d\n", data->time_to_die);
@@ -82,19 +97,4 @@ void	print_philos(t_data *data)
 		printf("last_eat: %lu\n", data->philos[i].last_eat);
 		i++;
 	}
-}
-
-int	main(int ac, char **av)
-{
-	t_data	data;
-
-	if (input_check(ac, av))
-		return (EXIT_FAILURE);
-	assign_data(&data, ac, av);
-	if (init_mutex(&data))
-		return (EXIT_FAILURE);
-	create_philos(&data);
-	start_routine(&data, data.philos);
-	exit_threads(data.philos, &data);
-	return (0);
-}
+} */

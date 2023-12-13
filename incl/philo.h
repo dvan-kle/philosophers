@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/13 18:08:45 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:11:38 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void			start_routine(t_data *data, t_philo *philos);
 void			exit_threads(t_philo *philos, t_data *data);
 void			sleeping(int time);
 void			philo_eats(t_philo *philo);
-void			printer(t_data *data, int id, char *str, int tid);
+void			printer(t_data *data, int id, char *str);
 void			*simulation(void *arg);
 #endif

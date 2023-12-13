@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   routine.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
+/*   Updated: 2023/12/13 18:12:45 by dvan-kle      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incl/philo.h"
 
 void	check_death(t_data *data, t_philo *philos)
@@ -17,7 +29,7 @@ void	check_death(t_data *data, t_philo *philos)
 			if (get_time() - philos[i].last_eat > data->time_to_die)
 			{
 				pthread_mutex_lock(&data->checking);
-				printer(data, philos[i].id, "died", -1);
+				printer(data, philos[i].id, "died");
 				data->dead = 1;
 				pthread_mutex_unlock(&data->checking);
 			}
@@ -54,15 +66,15 @@ void	*simulation(void *arg)
 	data = philo->data;
 	if (philo->id % 2)
 	{
-		printer(data, philo->id, "is thinking", -1);
+		printer(data, philo->id, "is thinking");
 		usleep(15000);
 	}
 	while (!data->dead)
 	{
 		philo_eats(philo);
-		printer(data, philo->id, "is sleeping", -1);
+		printer(data, philo->id, "is sleeping");
 		sleeping(data->time_to_sleep);
-		printer(data, philo->id, "is thinking", -1);
+		printer(data, philo->id, "is thinking");
 		i++;
 	}
 	return (NULL);
@@ -71,11 +83,11 @@ void	*simulation(void *arg)
 void	philo_eats(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->l_fork]);
-	printer(philo->data, philo->id, "has taken a fork", -1);
+	printer(philo->data, philo->id, "has taken a fork");
 	pthread_mutex_lock(&philo->data->forks[philo->r_fork]);
-	printer(philo->data, philo->id, "has taken a fork", -1);
+	printer(philo->data, philo->id, "has taken a fork");
 	pthread_mutex_lock(&philo->eating);
-	printer(philo->data, philo->id, "is eating", -1);
+	printer(philo->data, philo->id, "is eating");
 	philo->last_eat = get_time();
 	sleeping(philo->data->time_to_eat);
 	philo->eat_count++;
