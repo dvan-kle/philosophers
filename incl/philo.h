@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/08 16:40:10 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:08:45 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_data {
 	int				nb_ph;
-	int				time_to_die;
+	unsigned long	time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				max_eat_times;
@@ -30,6 +30,8 @@ typedef struct s_data {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	output;
 	pthread_mutex_t	checking;
+	int				dead;
+	int				ate;
 }	t_data;
 
 typedef struct s_philo {
@@ -39,6 +41,7 @@ typedef struct s_philo {
 	int				eat_count;
 	int				l_fork;
 	int				r_fork;
+	pthread_mutex_t	eating;
 	t_data			*data;
 }	t_philo;
 
@@ -51,6 +54,6 @@ void			start_routine(t_data *data, t_philo *philos);
 void			exit_threads(t_philo *philos, t_data *data);
 void			sleeping(int time);
 void			philo_eats(t_philo *philo);
-void			printer(t_data *data, int id, char *str);
+void			printer(t_data *data, int id, char *str, int tid);
 void			*simulation(void *arg);
 #endif

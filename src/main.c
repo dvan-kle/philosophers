@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/08 16:40:17 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:07:18 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 void	sleeping(int time)
 {
-	unsigned long	microsec;
-	
-	microsec = time * 1000;
-	usleep(microsec);
+	usleep(time * 1000);
 }
 
 void	create_philos(t_data *data)
 {
-	t_philo		*philos;
-	int			i;
+	t_philo	*philos;
+	int		i;
 
 	i = 0;
 	philos = malloc(sizeof(t_philo) * data->nb_ph);
@@ -35,10 +32,10 @@ void	create_philos(t_data *data)
 		philos[i].r_fork = (i + 1) % data->nb_ph;
 		philos[i].data = data;
 		philos[i].last_eat = data->starttime;
+		pthread_mutex_init(&philos[i].eating, NULL);
 		i++;
 	}
 	data->philos = philos;
-	//exit_threads(philos, data);
 }
 
 int	init_mutex(t_data *data)
@@ -47,21 +44,22 @@ int	init_mutex(t_data *data)
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_ph);
+	if (!data->forks)
+		return (EXIT_FAILURE);
 	while (i < data->nb_ph)
 	{
-		if(pthread_mutex_init(&data->forks[i], NULL))
+		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (EXIT_FAILURE);
 		i++;
 	}
-	if(pthread_mutex_init(&data->output, NULL))
+	if (pthread_mutex_init(&data->output, NULL))
 		return (EXIT_FAILURE);
-	if(pthread_mutex_init(&data->checking, NULL))
+	if (pthread_mutex_init(&data->checking, NULL))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-	
 }
 
-void print_data(t_data *data)
+void	print_data(t_data *data)
 {
 	printf("nb_ph: %d\n", data->nb_ph);
 	printf("time_to_die: %d\n", data->time_to_die);
@@ -70,7 +68,7 @@ void print_data(t_data *data)
 	printf("max_eat_times: %d\n", data->max_eat_times);
 }
 
-void print_philos(t_data *data)
+void	print_philos(t_data *data)
 {
 	int	i;
 
@@ -93,12 +91,10 @@ int	main(int ac, char **av)
 	if (input_check(ac, av))
 		return (EXIT_FAILURE);
 	assign_data(&data, ac, av);
-	//print_data(&data);
 	if (init_mutex(&data))
 		return (EXIT_FAILURE);
 	create_philos(&data);
 	start_routine(&data, data.philos);
-	// printf("philo: %d\n", data.philos[0].id + 1);
-	// print_philos(&data);
+	exit_threads(data.philos, &data);
 	return (0);
 }

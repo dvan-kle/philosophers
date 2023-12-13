@@ -6,14 +6,11 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:34:30 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/08 16:19:57 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:06:59 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-// number_of_philosophers time_to_die time_to_eat time_to_sleep 
-// [number_of_times_each_philosopher_must_eat]
 
 static int	check_digits(char *str)
 {
@@ -56,4 +53,6 @@ void	assign_data(t_data *data, int ac, char **av)
 	else if (ac == 5)
 		data->max_eat_times = -1;
 	data->starttime = get_time();
+	data->dead = 0;
+	data->ate = 0;
 }
