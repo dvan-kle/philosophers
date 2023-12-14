@@ -61,4 +61,5 @@ void			sleeping(int time, t_data *data);
 void			philo_eats(t_philo *philo);
 void			printer(t_data *data, int id, char *str, int unlock);
 void			*simulation(void *arg);
+
 #endif

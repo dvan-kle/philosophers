@@ -21,8 +21,6 @@ OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
 
 all: $(NAME)
 
-# .SILENT:
-
 $(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)
 	$(CC) $(CC_FLAGS) $(OBJ) -o $(NAME)
 	@echo "\033[32mBuild complete\033[0m"
@@ -30,6 +28,8 @@ $(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)
 $(OBJ_DIR)%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CC_FLAGS) -c $< -o $@
+
+all: $(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)

@@ -57,6 +57,7 @@ int	init_mutex(t_data *data)
 	if (pthread_mutex_init(&data->checking, NULL))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+
 }
 
 int	main(int ac, char **av)
