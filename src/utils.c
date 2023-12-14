@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 00:21:46 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:22:07 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/13 18:11:29 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,14 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * minplus);
+}
+
+void	printer(t_data *data, int id, char *str, int unlock)
+{
+	if (data->dead)
+		return ;
+	pthread_mutex_lock(&data->output);
+	printf("%lu %d %s\n", current_time(data->starttime), id + 1, str);
+	if (unlock)
+		pthread_mutex_unlock(&data->output);
 }
