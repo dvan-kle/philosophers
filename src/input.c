@@ -32,11 +32,10 @@ int	input_check(int ac, char **av)
 
 	i = 1;
 	if (ac < 5 || ac > 6)
-
 		return (EXIT_FAILURE);
 	while (av[i])
 	{
-		if (!check_digits(av[i]))
+		if (check_digits(av[i]))
 			return (EXIT_FAILURE);
 		i++;
 	}

@@ -13,7 +13,7 @@
 NAME = philo
 
 CC = gcc
-CC_FLAGS = -Wall -Wextra -g
+CC_FLAGS = -Wall -Wextra -g -fsanitize=thread
 SRC = src/main.c src/input.c src/time.c src/utils.c src/routine.c
 
 OBJ_DIR = obj/

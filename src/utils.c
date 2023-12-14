@@ -38,8 +38,10 @@ int	ft_atoi(const char *str)
 
 void	printer(t_data *data, int id, char *str, int unlock)
 {
+	pthread_mutex_lock(&data->checking);
 	if (data->dead)
 		return ;
+	pthread_mutex_unlock(&data->checking);
 	pthread_mutex_lock(&data->output);
 	printf("%lu %d %s\n", current_time(data->starttime), id + 1, str);
 	if (unlock)
