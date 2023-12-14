@@ -12,7 +12,7 @@
 
 #include "../incl/philo.h"
 
-void	sleeping(int time)
+void	sleeping(int time, t_data *data)
 {
 	usleep(time * 1000);
 }

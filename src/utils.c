@@ -36,9 +36,12 @@ int	ft_atoi(const char *str)
 	return (result * minplus);
 }
 
-void	printer(t_data *data, int id, char *str)
+void	printer(t_data *data, int id, char *str, int unlock)
 {
+	if (data->dead)
+		return ;
 	pthread_mutex_lock(&data->output);
 	printf("%lu %d %s\n", current_time(data->starttime), id + 1, str);
-	pthread_mutex_unlock(&data->output);
+	if (unlock)
+		pthread_mutex_unlock(&data->output);
 }

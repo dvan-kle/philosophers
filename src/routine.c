@@ -24,16 +24,16 @@ void	check_death(t_data *data, t_philo *philos)
 		while (i < data->nb_ph && !data->dead)
 		{
 			pthread_mutex_lock(&philos[i].eating);
-			if (philos[i].eat_count >= data->max_eat_times)
-				max_ate++;
 			if (get_time() - philos[i].last_eat > data->time_to_die)
 			{
 				pthread_mutex_lock(&data->checking);
-				printer(data, philos[i].id, "died");
+				printer(data, philos[i].id, "died", LOCK);
 				data->dead = 1;
 				pthread_mutex_unlock(&data->checking);
 			}
 			pthread_mutex_unlock(&philos[i].eating);
+			if (philos[i].eat_count == data->max_eat_times)
+				max_ate++;
 			i++;
 		}
 		if (data->dead)
@@ -66,15 +66,17 @@ void	*simulation(void *arg)
 	data = philo->data;
 	if (philo->id % 2)
 	{
-		printer(data, philo->id, "is thinking");
-		usleep(15000);
+		printer(data, philo->id, "is thinking", UNLOCK);
+		usleep(1000);
 	}
 	while (!data->dead)
 	{
 		philo_eats(philo);
-		printer(data, philo->id, "is sleeping");
-		sleeping(data->time_to_sleep);
-		printer(data, philo->id, "is thinking");
+		if (philo->eat_count == philo->data->max_eat_times)
+			break ;
+		printer(data, philo->id, "is sleeping", UNLOCK);
+		sleeping(data->time_to_sleep, data);
+		printer(data, philo->id, "is thinking", UNLOCK);
 		i++;
 	}
 	return (NULL);
@@ -83,13 +85,13 @@ void	*simulation(void *arg)
 void	philo_eats(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->l_fork]);
-	printer(philo->data, philo->id, "has taken a fork");
+	printer(philo->data, philo->id, "has taken a fork", UNLOCK);
 	pthread_mutex_lock(&philo->data->forks[philo->r_fork]);
-	printer(philo->data, philo->id, "has taken a fork");
+	printer(philo->data, philo->id, "has taken a fork", UNLOCK);
 	pthread_mutex_lock(&philo->eating);
-	printer(philo->data, philo->id, "is eating");
+	printer(philo->data, philo->id, "is eating", UNLOCK);
+	sleeping(philo->data->time_to_eat, philo->data);
 	philo->last_eat = get_time();
-	sleeping(philo->data->time_to_eat);
 	philo->eat_count++;
 	if (philo->eat_count == philo->data->max_eat_times)
 		philo->data->ate++;

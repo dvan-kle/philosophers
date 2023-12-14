@@ -19,7 +19,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_data {
+# define LOCK 0
+# define UNLOCK 1
+
+typedef struct s_data
+{
 	int				nb_ph;
 	unsigned long	time_to_die;
 	int				time_to_eat;
@@ -34,7 +38,8 @@ typedef struct s_data {
 	int				ate;
 }	t_data;
 
-typedef struct s_philo {
+typedef struct s_philo
+{
 	pthread_t		thread_id;
 	int				id;
 	unsigned long	last_eat;
@@ -52,8 +57,8 @@ int				ft_atoi(const char *str);
 int				input_check(int ac, char **av);
 void			start_routine(t_data *data, t_philo *philos);
 void			exit_threads(t_philo *philos, t_data *data);
-void			sleeping(int time);
+void			sleeping(int time, t_data *data);
 void			philo_eats(t_philo *philo);
-void			printer(t_data *data, int id, char *str);
+void			printer(t_data *data, int id, char *str, int unlock);
 void			*simulation(void *arg);
 #endif
