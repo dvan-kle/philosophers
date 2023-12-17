@@ -112,9 +112,9 @@ void	exit_threads(t_philo *philos, t_data *data)
 	i = 0;
 	while (i < data->nb_ph)
 	{
+		pthread_mutex_destroy(&philos[i].eating);
 		pthread_join(philos[i].thread_id, NULL);
 		i++;
-		pthread_mutex_destroy(&philos[i].eating);
 	}
 	i = 0;
 	while (i < data->nb_ph)
@@ -124,4 +124,6 @@ void	exit_threads(t_philo *philos, t_data *data)
 	}
 	pthread_mutex_destroy(&data->output);
 	pthread_mutex_destroy(&data->checking);
+	free(philos);
+	free(data->forks);
 }
