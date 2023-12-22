@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/13 18:14:04 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2023/12/22 15:15:59 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	create_philos(&data);
 	start_routine(&data, data.philos);
-	exit_threads(data.philos, &data);
 	return (0);
 }
 
