@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/22 15:15:59 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/01/17 20:34:18 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 void	sleeping(int time, t_data *data)
 {
-	usleep(time * 1000);
+	unsigned long	start;
+
+	start = get_time();
+	while ((get_time() - start) < (unsigned long)time)
+	{
+		if (data->dead)
+			return ;
+		usleep(150);
+	}
 }
 
 void	create_philos(t_data *data)
@@ -57,7 +65,6 @@ int	init_mutex(t_data *data)
 	if (pthread_mutex_init(&data->checking, NULL))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-
 }
 
 int	main(int ac, char **av)

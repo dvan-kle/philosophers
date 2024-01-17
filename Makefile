@@ -6,14 +6,14 @@
 #    By: dvan-kle <dvan-kle@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/06/14 21:47:54 by dvan-kle      #+#    #+#                  #
-#    Updated: 2023/12/22 16:31:29 by dvan-kle      ########   odam.nl          #
+#    Updated: 2024/01/17 20:33:31 by dvan-kle      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-CC_FLAGS = -Wall -Wextra -g
+CC_FLAGS = -Wall -Wextra -g -fsanitize=thread
 SRC = src/main.c src/input.c src/time.c src/utils.c src/routine.c
 
 OBJ_DIR = obj/
