@@ -6,24 +6,11 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/17 20:34:18 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/01/18 14:06:50 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-void	sleeping(int time, t_data *data)
-{
-	unsigned long	start;
-
-	start = get_time();
-	while ((get_time() - start) < (unsigned long)time)
-	{
-		if (data->dead)
-			return ;
-		usleep(150);
-	}
-}
 
 void	create_philos(t_data *data)
 {

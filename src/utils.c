@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/15 00:21:46 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/22 15:15:32 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/01/18 15:18:24 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	printer(t_data *data, int id, char *str, int unlock)
 {
 	pthread_mutex_lock(&data->checking);
 	if (data->dead)
+	{
+		pthread_mutex_unlock(&data->checking);
 		return ;
+	}
 	pthread_mutex_unlock(&data->checking);
 	pthread_mutex_lock(&data->output);
 	printf("%lu %d %s\n", current_time(data->starttime), id + 1, str);

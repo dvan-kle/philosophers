@@ -6,11 +6,20 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 22:20:13 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/06/15 00:11:36 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/01/18 14:42:08 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
+
+void	sleeping(int time, t_data *data)
+{
+	unsigned long	start;
+
+	start = get_time();
+	while ((get_time() - start) < (unsigned long)time)
+		usleep(150);
+}
 
 unsigned long	get_time(void)
 {
