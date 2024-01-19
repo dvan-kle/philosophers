@@ -6,77 +6,11 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/18 16:56:16 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/01/19 17:17:36 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
-
-/* void	philo_dead(t_env *env, t_philo *philo)
-{
-	int	i;
-
-	while (!env->max_ate)
-	{
-		i = -1;
-		while (++i < env->count && !env->stop_condition)
-		{
-			pthread_mutex_lock(&env->meal);
-			if ((int)(get_time() - philo[i].last_ate) >= env->time_to_die)
-			{
-				philo_print("died", &philo[i], LOCK);
-				env->stop_condition = 1;
-			}
-			pthread_mutex_unlock(&env->meal);
-		}
-		if (env->stop_condition)
-			break ;
-		i = 0;
-		while (env->eat_count_max && i < env->count
-			&& philo[i].ate_times >= env->eat_count_max)
-			i++;
-		env->max_ate = (i == env->count);
-	}
-} */
-
-void	check_death(t_data *data, t_philo *philos)
-{
-	int	i;
-	int	max_ate;
-
-	max_ate = 0;
-	while (!data->ate)
-	{
-		i = -1;
-		while (++i < data->nb_ph && !data->dead)
-		{
-			pthread_mutex_lock(&philos[i].eating);
-			if (get_time() - philos[i].last_eat >= data->time_to_die)
-			{
-				printer(data, philos[i].id, "died", LOCK);
-				pthread_mutex_lock(&data->checking);
-				data->dead = 1;
-				pthread_mutex_unlock(&data->checking);
-				pthread_mutex_unlock(&philos[i].eating);
-				break ;
-			}
-			if (philos[i].eat_count == data->max_eat_times)
-				max_ate++;
-			pthread_mutex_unlock(&philos[i].eating);
-		}
-		pthread_mutex_lock(&data->checking);
-		if (data->dead)
-		{
-			pthread_mutex_unlock(&data->checking);
-			break ;
-		}
-		i = 0;
-		while (data->max_eat_times && i < data->nb_ph && max_ate == data->nb_ph)
-			i++;
-		data->ate = (i == data->nb_ph);
-		pthread_mutex_unlock(&data->checking);
-	}
-}
 
 void	start_routine(t_data *data, t_philo *philos)
 {
@@ -91,7 +25,8 @@ void	start_routine(t_data *data, t_philo *philos)
 		i++;
 	}
 	check_death(data, philos);
-	pthread_mutex_unlock(&data->output);
+	if (data->dead)
+		pthread_mutex_unlock(&data->output);
 	exit_threads(philos, data);
 }
 
@@ -107,7 +42,7 @@ void	*simulation(void *arg)
 	if (philo->id % 2 && data->nb_ph > 1)
 	{
 		printer(data, philo->id, "is thinking", UNLOCK);
-		usleep(data->time_to_eat);
+		usleep(2000);
 	}
 	pthread_mutex_lock(&data->checking);
 	while (!data->dead && !data->ate)
