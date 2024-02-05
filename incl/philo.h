@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/19 17:05:04 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/05 17:51:50 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				ft_atoi(const char *str);
 int				input_check(int ac, char **av);
 void			start_routine(t_data *data, t_philo *philos);
 void			exit_threads(t_philo *philos, t_data *data);
-void			sleeping(int time, t_data *data);
+void			sleeping(int time);
 void			philo_eats(t_philo *philo);
 void			printer(t_data *data, int id, char *str, int unlock);
 void			*simulation(void *arg);

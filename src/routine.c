@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/19 17:17:36 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/05 17:51:41 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	*simulation(void *arg)
 		pthread_mutex_unlock(&data->checking);
 		philo_eats(philo);
 		printer(data, philo->id, "is sleeping", UNLOCK);
-		sleeping(data->time_to_sleep, data);
+		sleeping(data->time_to_sleep);
 		printer(data, philo->id, "is thinking", UNLOCK);
 		i++;
 		pthread_mutex_lock(&data->checking);
@@ -70,7 +70,7 @@ void	philo_eats(t_philo *philo)
 	philo->last_eat = get_time();
 	philo->eat_count++;
 	pthread_mutex_unlock(&philo->eating);
-	sleeping(philo->data->time_to_eat, philo->data);
+	sleeping(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->r_fork]);
 }

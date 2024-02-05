@@ -6,13 +6,13 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 22:20:13 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/18 14:42:08 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/05 17:51:17 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/philo.h"
 
-void	sleeping(int time, t_data *data)
+void	sleeping(int time)
 {
 	unsigned long	start;
 
