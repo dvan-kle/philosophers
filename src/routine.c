@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/05 17:51:41 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/07 18:04:10 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	start_routine(t_data *data, t_philo *philos)
 	int	i;
 
 	i = 0;
+	data->starttime = get_time();
 	while (i < data->nb_ph)
 	{
 		philos[i].last_eat = get_time();

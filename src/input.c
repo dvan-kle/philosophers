@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:34:30 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2023/12/13 18:06:59 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/07 17:03:07 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	assign_data(t_data *data, int ac, char **av)
 		data->max_eat_times = ft_atoi(av[5]);
 	else if (ac == 5)
 		data->max_eat_times = -1;
-	data->starttime = get_time();
+	data->starttime = 0;
 	data->dead = 0;
 	data->ate = 0;
 }
