@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:34:13 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/07 17:15:03 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/09 17:47:16 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ static void	died(t_philo *philos, t_data *data, int i)
 
 static void	check_ate(t_data *data, int max_ate)
 {
-	int		i;
-	t_philo	*philos;
+	//int		i;
+	//t_philo	*philos;
 
-	i = 0;
-	philos = data->philos;
-	while (i < data->nb_ph && philos[i].eat_count == data->max_eat_times)
-		i++;
-	data->ate = (i == data->nb_ph);
+	//i = 0;
+	//philos = data->philos;
+	// pthread_mutex_lock(&philos[i].eating);
+	// while (i < data->nb_ph && philos[i].eat_count == data->max_eat_times)
+	// {
+	// 	// pthread_mutex_unlock(&philos[i].eating);
+	// 	i++;
+	// 	// pthread_mutex_lock(&philos[i].eating);
+	// }
+	// pthread_mutex_unlock(&philos[i].eating);
+	data->ate = (max_ate == data->nb_ph);
 	pthread_mutex_unlock(&data->checking);
 }
 

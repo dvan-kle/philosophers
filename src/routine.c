@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/07 18:04:10 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/09 15:49:22 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	*simulation(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	if (philo->id % 2 && data->nb_ph > 1)
-	{
-		printer(data, philo->id, "is thinking", UNLOCK);
-		usleep(2000);
-	}
+		sleeping(data->time_to_eat / 2);
 	pthread_mutex_lock(&data->checking);
 	while (!data->dead && !data->ate)
 	{
