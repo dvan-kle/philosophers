@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 18:12:44 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/09 15:49:22 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/16 17:08:22 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	start_routine(t_data *data, t_philo *philos)
 {
 	int	i;
+	int	max_ate;
 
 	i = 0;
+	max_ate = 0;
 	data->starttime = get_time();
 	while (i < data->nb_ph)
 	{
@@ -25,7 +27,7 @@ void	start_routine(t_data *data, t_philo *philos)
 			(void *)&philos[i]);
 		i++;
 	}
-	check_death(data, philos);
+	check_death(data, philos, max_ate);
 	if (data->dead)
 		pthread_mutex_unlock(&data->output);
 	exit_threads(philos, data);
@@ -47,13 +49,16 @@ void	*simulation(void *arg)
 	{
 		pthread_mutex_unlock(&data->checking);
 		philo_eats(philo);
+		if (data->nb_ph == 1)
+			break ;
 		printer(data, philo->id, "is sleeping", UNLOCK);
 		sleeping(data->time_to_sleep);
 		printer(data, philo->id, "is thinking", UNLOCK);
 		i++;
 		pthread_mutex_lock(&data->checking);
 	}
-	pthread_mutex_unlock(&data->checking);
+	if (data->nb_ph != 1)
+		pthread_mutex_unlock(&data->checking);
 	return (NULL);
 }
 
@@ -61,12 +66,19 @@ void	philo_eats(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->l_fork]);
 	printer(philo->data, philo->id, "has taken a fork", UNLOCK);
+	if (philo->data->nb_ph == 1)
+	{
+		pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);
+		return ;
+	}
 	pthread_mutex_lock(&philo->data->forks[philo->r_fork]);
 	printer(philo->data, philo->id, "has taken a fork", UNLOCK);
 	pthread_mutex_lock(&philo->eating);
 	printer(philo->data, philo->id, "is eating", UNLOCK);
 	philo->last_eat = get_time();
 	philo->eat_count++;
+	if (philo->eat_count == philo->data->max_eat_times)
+		philo->ate = 1;
 	pthread_mutex_unlock(&philo->eating);
 	sleeping(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);

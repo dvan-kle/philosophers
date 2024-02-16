@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 21:10:39 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/05 17:51:50 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/16 17:09:16 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 	int				eat_count;
 	int				l_fork;
 	int				r_fork;
+	int				ate;
 	pthread_mutex_t	eating;
 	t_data			*data;
 }	t_philo;
@@ -61,6 +62,6 @@ void			sleeping(int time);
 void			philo_eats(t_philo *philo);
 void			printer(t_data *data, int id, char *str, int unlock);
 void			*simulation(void *arg);
-void			check_death(t_data *data, t_philo *philos);
+void			check_death(t_data *data, t_philo *philos, int max_ate);
 
 #endif

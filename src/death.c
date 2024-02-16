@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:34:13 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/02/09 17:47:16 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/16 17:09:07 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,27 @@ static void	died(t_philo *philos, t_data *data, int i)
 	pthread_mutex_unlock(&philos[i].eating);
 }
 
+// static void	check_ate(t_data *data, int max_ate)
+// {
+// 	//int		i;
+// 	//t_philo	*philos;
+
+// 	//i = 0;
+// 	//philos = data->philos;
+// 	// pthread_mutex_lock(&philos[i].eating);
+// 	// while (i < data->nb_ph && philos[i].eat_count == data->max_eat_times)
+// 	// {
+// 	// 	// pthread_mutex_unlock(&philos[i].eating);
+// 	// 	i++;
+// 	// 	// pthread_mutex_lock(&philos[i].eating);
+// 	// }
+// 	// pthread_mutex_unlock(&philos[i].eating);
+// 	data->ate = (max_ate == data->nb_ph);
+// 	pthread_mutex_unlock(&data->checking);
+// }
+
 static void	check_ate(t_data *data, int max_ate)
 {
-	//int		i;
-	//t_philo	*philos;
-
-	//i = 0;
-	//philos = data->philos;
-	// pthread_mutex_lock(&philos[i].eating);
-	// while (i < data->nb_ph && philos[i].eat_count == data->max_eat_times)
-	// {
-	// 	// pthread_mutex_unlock(&philos[i].eating);
-	// 	i++;
-	// 	// pthread_mutex_lock(&philos[i].eating);
-	// }
-	// pthread_mutex_unlock(&philos[i].eating);
 	data->ate = (max_ate == data->nb_ph);
 	pthread_mutex_unlock(&data->checking);
 }
@@ -51,12 +57,10 @@ static int	if_died(t_data *data)
 	return (0);
 }
 
-void	check_death(t_data *data, t_philo *philos)
+void	check_death(t_data *data, t_philo *philos, int max_ate)
 {
 	int	i;
-	int	max_ate;
 
-	max_ate = 0;
 	while (!data->ate)
 	{
 		i = -1;
@@ -68,8 +72,11 @@ void	check_death(t_data *data, t_philo *philos)
 				died(philos, data, i);
 				break ;
 			}
-			if (philos[i].eat_count == data->max_eat_times)
+			if (philos[i].ate == 1)
+			{
+				philos[i].ate++;
 				max_ate++;
+			}
 			pthread_mutex_unlock(&philos[i].eating);
 		}
 		if (if_died(data))

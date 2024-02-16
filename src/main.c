@@ -6,7 +6,7 @@
 /*   By: dvan-kle <dvan-kle@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/14 17:39:41 by dvan-kle      #+#    #+#                 */
-/*   Updated: 2024/01/18 14:06:50 by dvan-kle      ########   odam.nl         */
+/*   Updated: 2024/02/16 16:42:30 by dvan-kle      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	create_philos(t_data *data)
 		philos[i].l_fork = i;
 		philos[i].r_fork = (i + 1) % data->nb_ph;
 		philos[i].data = data;
+		philos[i].ate = 0;
 		philos[i].last_eat = data->starttime;
 		pthread_mutex_init(&philos[i].eating, NULL);
 		i++;
